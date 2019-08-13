@@ -3,7 +3,6 @@
   <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
   <button type="submit">Add task</button>
 </form>
-
 <div *ngFor="let item of allTasks; let i = index">
   <p *ngIf="!editoption[i]">{{item?.task}} {{item?.description}}</p>
   <section class="edit-section" *ngIf="editoption[i]">
@@ -11,8 +10,9 @@
       <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
       <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
       <button type="submit">Update task</button>
+      <button type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]">Cancel edit</button>
     </form>
   </section>
   <button type="button" (click)="editoption[i] =!editoption[i]" *ngIf="!editoption[i]">Edit</button>
-  <button type="button" (click)="deleteTask(item?.id)">Delete</button>
+  <button type="button" (click)="deleteTask(item?.id)" *ngIf="!editoption[i]">Delete</button>
 </div>
