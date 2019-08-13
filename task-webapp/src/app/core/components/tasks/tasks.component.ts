@@ -1,9 +1,7 @@
-import { TaskModel } from './../../../shared/models/task.models';
-
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../services/task.service';
 import { NgForm } from '@angular/forms';
-
+import { TaskService } from '../../services/task.service';
+import { TaskModel } from './../../../shared/models/task.models';
 
 @Component({
   selector: 'app-task',
@@ -12,7 +10,6 @@ import { NgForm } from '@angular/forms';
 })
 
 export class TaskComponent implements OnInit {
-
   allTasks: TaskModel[];
 
   constructor(private taskService: TaskService) {
@@ -23,8 +20,10 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
     this.onLoadComponent();
   }
-
-  onLoadComponent() {
+  onLoadComponent(): void {
+    this.getAllTasks();
+  }
+  getAllTasks(): void {
     this.taskService.get().subscribe(response => {
       this.allTasks = response.message;
     });
@@ -37,5 +36,9 @@ export class TaskComponent implements OnInit {
       this.allTasks.push(response.message);
     });
   }
-
+  deleteTask(id: string): void {
+    this.taskService.delete(id).subscribe(response => {
+      this.allTasks = this.allTasks.filter(task => task.id !== response.message);
+    });
+  }
 }

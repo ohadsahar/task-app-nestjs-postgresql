@@ -8,15 +8,19 @@ import { TaskDTO } from '../dto/create-task.dto';
 export class TaskService {
 
     constructor(@InjectRepository(TaskEntity)
-    private taskRepository: Repository<TaskEntity>) {}
+    private taskRepository: Repository<TaskEntity>) { }
 
     async getTasks() {
         return await this.taskRepository.find();
     }
 
     async createTask(data: TaskDTO) {
-        const newTask =  await this.taskRepository.create(data);
-        await this.taskRepository.save(data);
-        return newTask;
+        await this.taskRepository.create(data);
+        const result = await this.taskRepository.save(data);
+        return result;
+    }
+    async deleteTask(id: string) {
+        const resultDelete = await this.taskRepository.delete({ id });
+        return resultDelete;
     }
 }
