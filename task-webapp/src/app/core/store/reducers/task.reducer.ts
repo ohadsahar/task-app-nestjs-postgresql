@@ -48,6 +48,42 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
         loading: false,
         data: action.payload
       };
+    case taskActions.DELETE_TASKS:
+      return {
+        ...state,
+        loading: true,
+        data: action.payload
+      };
+    case taskActions.DELETE_TASKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload
+      };
+    case taskActions.DELETE_TASKS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload
+      };
+    case taskActions.UPDATE_TASKS:
+      return {
+        ...state,
+        loading: true,
+        data: action.payload
+      };
+    case taskActions.UPDATE_TASKS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload
+      };
+    case taskActions.UPDATE_TASKS_FAILED:
+      return {
+        ...state,
+        loading: false,
+        data: action.payload
+      };
     default:
       return {
         ...state

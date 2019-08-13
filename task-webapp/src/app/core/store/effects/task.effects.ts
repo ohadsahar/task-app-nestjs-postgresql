@@ -36,4 +36,34 @@ export class TaskEffect {
       ),
     ),
     );
-    }
+
+  @Effect()
+  public deleteTask$ = this.actions$.pipe(ofType(taskActions.DELETE_TASKS))
+    .pipe(exhaustMap((action: taskActions.DeleteTasks) =>
+      this.taskService.delete(action.payload).pipe(map((data) => {
+        if (data.message) {
+          return new taskActions.DeleteTasksSuccess(data.message);
+        }
+      }),
+        catchError((error) => {
+          return of(new taskActions.DeleteTasksFailed(error));
+        }),
+      ),
+    ),
+    );
+
+  @Effect()
+  public updateTask$ = this.actions$.pipe(ofType(taskActions.UPDATE_TASKS))
+    .pipe(exhaustMap((action: taskActions.UpdateTasks) =>
+      this.taskService.update(action.payload).pipe(map((data) => {
+        if (data.message) {
+          return new taskActions.UpdateTasksSuccess(data.message);
+        }
+      }),
+        catchError((error) => {
+          return of(new taskActions.UpdateTasksFailed(error));
+        }),
+      ),
+    ),
+    );
+}

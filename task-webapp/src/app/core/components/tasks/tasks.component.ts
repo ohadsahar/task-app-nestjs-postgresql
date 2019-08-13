@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { TaskService } from '../../services/task.service';
-import { TaskModel } from './../../../shared/models/task.models';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import * as fromRoot from '../../../app.reducer';
 import * as taskActions from '../../../core/store/actions/task.actions';
-import { Store } from '@ngrx/store';
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { TaskModel } from './../../../shared/models/task.models';
 
 @Component({
   selector: 'app-task',
@@ -20,7 +19,7 @@ export class TaskComponent implements OnInit {
   editoption: any;
   editEnable: boolean;
 
-  constructor(private taskService: TaskService, private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>) {
     this.allTasks = [];
     this.editoption = {};
   }
@@ -51,6 +50,7 @@ export class TaskComponent implements OnInit {
         if (!data.loading) {
           this.allTasks.push(data.data);
           dataToSubscribe.unsubscribe();
+          form.reset();
         }
       });
   }
@@ -59,16 +59,28 @@ export class TaskComponent implements OnInit {
       return;
     }
     form.value.id = item.id;
-    this.taskService.update(form.value).subscribe(response => {
-      const index = this.allTasks.findIndex(task => task.id === response.message.id);
-      if (index >= 0) {
-        this.allTasks[index] = response.message;
-      }
-    });
+    this.store.dispatch(new taskActions.UpdateTasks(form.value));
+    const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
+      .subscribe((data) => {
+        if (!data.loading) {
+          const index = this.allTasks.findIndex(task => task.id === data.data.id);
+          if (index >= 0) {
+            this.allTasks[index] = data.data;
+          }
+          dataToSubscribe.unsubscribe();
+          form.reset();
+        }
+      });
   }
   deleteTask(id: string): void {
-    this.taskService.delete(id).subscribe(response => {
-      this.allTasks = this.allTasks.filter(task => task.id !== response.message);
-    });
+    this.store.dispatch(new taskActions.DeleteTasks(id));
+    const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
+      .subscribe((data) => {
+        if (!data.loading) {
+          this.allTasks = this.allTasks.filter(task => task.id !== data.data);
+          dataToSubscribe.unsubscribe();
+        }
+      });
   }
 }
+
