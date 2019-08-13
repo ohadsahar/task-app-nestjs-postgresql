@@ -13,11 +13,14 @@ export class TaskService {
     async getTasks() {
         return await this.taskRepository.find();
     }
-
     async createTask(data: TaskDTO) {
         await this.taskRepository.create(data);
         const result = await this.taskRepository.save(data);
         return result;
+    }
+    async updateTask(id: string, data: TaskDTO) {
+        await this.taskRepository.update({ id }, data);
+        return await this.taskRepository.findOne({id});
     }
     async deleteTask(id: string) {
         const resultDelete = await this.taskRepository.delete({ id });

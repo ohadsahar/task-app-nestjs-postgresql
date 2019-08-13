@@ -16,7 +16,9 @@ export class TaskService {
   create(taskData: TaskModel) {
     return this.http.post<{ message: TaskModel}>(backendUrlTask, taskData);
   }
-
+  update(taskData: TaskModel) {
+    return this.http.put<{message: TaskModel}>(backendUrlTask, taskData);
+  }
   delete(id: string) {
     return this.http.delete<{message: string}>(`${backendUrlTask}/${id}`);
   }

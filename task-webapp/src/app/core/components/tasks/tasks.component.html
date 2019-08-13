@@ -4,7 +4,15 @@
   <button type="submit">Add task</button>
 </form>
 
-<div *ngFor="let item of allTasks">
-  <p>{{item?.task}} {{item?.description}}</p>
+<div *ngFor="let item of allTasks; let i = index">
+  <p *ngIf="!editoption[i]">{{item?.task}} {{item?.description}}</p>
+  <section class="edit-section" *ngIf="editoption[i]">
+    <form #taskForm="ngForm" (submit)="updateTask(taskForm, item);editoption[i] =!editoption[i]" ngForm>
+      <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
+      <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
+      <button type="submit">Update task</button>
+    </form>
+  </section>
+  <button type="button" (click)="editoption[i] =!editoption[i]" *ngIf="!editoption[i]">Edit</button>
   <button type="button" (click)="deleteTask(item?.id)">Delete</button>
 </div>
