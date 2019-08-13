@@ -1,0 +1,9 @@
+<form #taskForm="ngForm" (submit)="createTask(taskForm)" ngForm>
+  <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
+  <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
+  <button type="submit">Add task</button>
+</form>
+
+<div *ngFor="let item of allTasks">
+  <p>{{item?.task}} {{item?.description}}</p>
+</div>
