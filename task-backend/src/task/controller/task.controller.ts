@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { TaskValidationPipe } from './../pipes/task-validation.pipe';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TaskDTO } from './../dto/create-task.dto';
 import { TaskService } from './../service/task.service';
 
@@ -17,6 +18,7 @@ export class TaskController {
         }
     }
     @Post()
+    @UsePipes(ValidationPipe)
     async create(@Body() taskDTO: TaskDTO) {
         try {
             const resultCreate = await this.taskService.createTask(taskDTO);
