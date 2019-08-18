@@ -1,21 +1,13 @@
-import { TaskEntity } from 'src/entities/task/TaskEntity';
+import { AuthModule } from './auth/module/auth.module';
+import { TypeOrmConfig } from './config/typeorm.config';
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { TaskModule } from './task/module/task.module';
+
 @Module({
-  imports: [TaskModule, TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'postgres',
-    password: 'ppd53brx',
-    database: 'tasks',
-    entities: [TaskEntity],
-    synchronize: false,
-    logging: true,
-  })],
+  imports: [TaskModule, AuthModule, TypeOrmModule.forRoot(TypeOrmConfig)],
   controllers: [AppController],
   providers: [AppService],
 })

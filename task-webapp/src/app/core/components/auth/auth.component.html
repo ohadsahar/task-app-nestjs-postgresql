@@ -1,0 +1,22 @@
+<div class="auth-component">
+  <section class="sign-up-form">
+    <h1>Sign-up</h1>
+    <form #signUpForm="ngForm" (submit)="signUp(signUpForm)" ngForm>
+      <mat-form-field class="full-width">
+        <input matInput type="text" name="username" #username="ngModel" ngModel>
+        <mat-placeholder class="placeholder">Username</mat-placeholder>
+        <mat-error *ngIf="username.invalid">username is invalid</mat-error>
+      </mat-form-field>
+      <mat-form-field class="full-width">
+        <input matInput name="password" #password="ngModel" ngModel [type]="hide ? 'password' : 'text'">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-placeholder class="placeholder">Password</mat-placeholder>
+        <mat-error *ngIf="password.invalid">Error is invalid</mat-error>
+      </mat-form-field>
+      <button mat-button-raised color="primary" type="submit">Submit signup</button>
+    </form>
+  </section>
+</div>

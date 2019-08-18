@@ -18,7 +18,6 @@ export class TaskController {
         }
     }
     @Post()
-    @UsePipes(ValidationPipe)
     async create(@Body() taskDTO: TaskDTO) {
         try {
             const resultCreate = await this.taskService.createTask(taskDTO);

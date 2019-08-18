@@ -48,7 +48,6 @@ export class TaskComponent implements OnInit {
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
       .subscribe((data) => {
         if (!data.loading) {
-          console.log(data);
           this.allTasks.push(data.data);
           dataToSubscribe.unsubscribe();
           form.reset();
