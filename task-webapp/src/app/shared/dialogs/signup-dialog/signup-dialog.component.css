@@ -1,0 +1,8 @@
+.sign-up-component .sign-up-form {
+  text-align: center;
+  width: 400px;
+  margin: auto;
+ }
+ .sign-up-component .full-width {
+   width: 100%;
+ }

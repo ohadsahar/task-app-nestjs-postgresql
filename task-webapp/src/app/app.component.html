@@ -1,4 +1,4 @@
-<app-auth></app-auth>
-<app-task></app-task>
+<app-auth *ngIf="!isLogged"></app-auth>
+<app-task *ngIf="isLogged"></app-task>
 
 <router-outlet></router-outlet>

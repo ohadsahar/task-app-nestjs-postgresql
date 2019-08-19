@@ -1,6 +1,8 @@
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { LoginDialogComponent } from 'src/app/shared/dialogs/login-dialog/login-dialog.component';
+import { SignupDialogComponent } from 'src/app/shared/dialogs/signup-dialog/signup-dialog.component';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,18 +12,18 @@ import { NgForm } from '@angular/forms';
 export class AuthComponent implements OnInit {
 
   hide: boolean;
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, public dialog: MatDialog) {
     this.hide = true;
   }
 
   ngOnInit() {
   }
 
-  signUp(form: NgForm) {
-    if (form.invalid) {
-      return;
-    }
-    this.authService.signIn(form.value);
+  login() {
+    this.dialog.open(LoginDialogComponent);
+  }
+  signUp() {
+    this.dialog.open(SignupDialogComponent);
   }
 
 }

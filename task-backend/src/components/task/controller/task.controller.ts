@@ -1,15 +1,14 @@
-import { TaskValidationPipe } from './../pipes/task-validation.pipe';
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { TaskDTO } from './../dto/create-task.dto';
 import { TaskService } from './../service/task.service';
-import { AuthGuard } from '@nestjs/passport';
 
 @Controller('task')
 
+@UseGuards(AuthGuard())
 export class TaskController {
-
     constructor(private readonly taskService: TaskService) { }
-    @UseGuards(AuthGuard())
+
     @Get()
     async get() {
         try {
@@ -20,7 +19,7 @@ export class TaskController {
         }
     }
     @Post()
-    async create(@Body() taskDTO: TaskDTO) {
+    async create(@Body(ValidationPipe) taskDTO: TaskDTO) {
         try {
             const resultCreate = await this.taskService.createTask(taskDTO);
             return { message: resultCreate, success: true };
@@ -38,7 +37,7 @@ export class TaskController {
         }
     }
     @Put()
-    async update(@Body() taskDto: TaskDTO) {
+    async update(@Body(ValidationPipe) taskDto: TaskDTO) {
         try {
             const resultUpdate = await this.taskService.updateTask(taskDto.id, taskDto);
             return { message: resultUpdate, success: true };

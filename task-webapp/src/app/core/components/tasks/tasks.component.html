@@ -16,3 +16,5 @@
   <button type="button" (click)="editoption[i] =!editoption[i]" *ngIf="!editoption[i]">Edit</button>
   <button type="button" (click)="deleteTask(item?.id)" *ngIf="!editoption[i]">Delete</button>
 </div>
+
+<button type="button" mat-raised-button color="primary" (click)="logout()">Logout</button>

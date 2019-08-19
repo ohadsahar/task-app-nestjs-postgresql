@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import * as fromRoot from '../../../app.reducer';
 import * as taskActions from '../../../core/store/actions/task.actions';
 import { TaskModel } from './../../../shared/models/task.models';
+import { AuthService } from './../../services/auth.service';
 
 @Component({
   selector: 'app-task',
@@ -19,7 +20,7 @@ export class TaskComponent implements OnInit {
   editoption: any;
   editEnable: boolean;
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>, private authService: AuthService) {
     this.allTasks = [];
     this.editoption = {};
   }
@@ -81,6 +82,9 @@ export class TaskComponent implements OnInit {
           dataToSubscribe.unsubscribe();
         }
       });
+  }
+  logout() {
+    this.authService.logout();
   }
 }
 

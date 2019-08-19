@@ -1,3 +1,4 @@
+import { SignupDialogComponent } from './shared/dialogs/signup-dialog/signup-dialog.component';
 import { AuthInterceptor } from './core/components/auth/auth-interceptor.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from './angular-material.module';
@@ -13,13 +14,17 @@ import { FormsModule} from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthComponent } from './core/components/auth/auth.component';
+import { LoginDialogComponent } from './shared/dialogs/login-dialog/login-dialog.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
-    AuthComponent
+    AuthComponent,
+    SignupDialogComponent,
+    LoginDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +36,7 @@ import { AuthComponent } from './core/components/auth/auth.component';
     AngularMaterialModule,
     BrowserAnimationsModule
   ],
+  entryComponents:[SignupDialogComponent, LoginDialogComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
