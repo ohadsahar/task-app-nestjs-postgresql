@@ -17,7 +17,11 @@ export class AuthController {
     }
     @Post('/login')
     async login(@Body(ValidationPipe) authDto: AuthDto) {
-        const result = await this.authService.loginUser(authDto);
-        return { message: result.accessToken };
+        try {
+            const result = await this.authService.loginUser(authDto);
+            return { message: result.accessToken, success: true };
+        } catch (error) {
+            return { message: error, success: false };
+        }
     }
 }
