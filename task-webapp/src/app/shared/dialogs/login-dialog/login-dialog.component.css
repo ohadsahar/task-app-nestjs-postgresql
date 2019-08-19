@@ -1,8 +1,15 @@
-.login-component .login-form {
+ .login-form {
   text-align: center;
   width: 400px;
   margin: auto;
- }
+}
+
 .login-component .full-width {
-   width: 100%;
- }
+  width: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+   .full-width {
+    width: 100% !important;
+  }
+}

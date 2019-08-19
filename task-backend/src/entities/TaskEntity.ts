@@ -9,7 +9,13 @@ export class TaskEntity {
     created: Date;
 
     @Column('text')
+    username: string;
+
+    @Column('text')
     task: string;
+
+    @Column('text')
+    status: string;
 
     @Column('text')
     description: string;

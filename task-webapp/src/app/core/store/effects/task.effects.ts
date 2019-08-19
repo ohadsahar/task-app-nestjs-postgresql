@@ -11,8 +11,8 @@ export class TaskEffect {
   constructor(private actions$: Actions, private taskService: TaskService) { }
   @Effect()
   public getAllTask$ = this.actions$.pipe(ofType(taskActions.GET_ALL_TASKS))
-    .pipe(switchMap(() =>
-      this.taskService.get().pipe(map((tasks) => {
+    .pipe(switchMap((action: taskActions.GetAllTasks) =>
+      this.taskService.get(action.payload).pipe(map((tasks) => {
         return new taskActions.GetAllTasksSuccess(tasks.message);
       }),
         catchError((error) => {

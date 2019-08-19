@@ -2,9 +2,15 @@ import { IsNotEmpty, IsString } from 'class-validator';
 
 export class TaskDTO {
 
+    public id: string;
+
     @IsNotEmpty()
     @IsString()
-    public id: string;
+    public username: string;
+
+    @IsNotEmpty()
+    @IsString()
+    public status: string;
 
     @IsNotEmpty()
     @IsString()

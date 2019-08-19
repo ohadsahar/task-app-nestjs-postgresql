@@ -9,10 +9,10 @@ import { TaskService } from './../service/task.service';
 export class TaskController {
     constructor(private readonly taskService: TaskService) { }
 
-    @Get()
-    async get() {
+    @Get(':username')
+    async get(@Param('username') username: string) {
         try {
-            const resultAllTasks = await this.taskService.getTasks();
+            const resultAllTasks = await this.taskService.getTasks(username);
             return { message: resultAllTasks, success: true };
         } catch (error) {
             return { message: error, success: false };

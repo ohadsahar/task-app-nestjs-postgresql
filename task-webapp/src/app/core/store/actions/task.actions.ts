@@ -13,7 +13,7 @@ export const UPDATE_TASKS_SUCCESS = 'UPDATE_TASKS_SUCCESS';
 export const UPDATE_TASKS_FAILED = 'UPDATE_TASKS_FAILED';
 export class GetAllTasks implements Action {
   readonly type = GET_ALL_TASKS;
-  constructor() { }
+  constructor(public payload: any) { }
 }
 export class GetAllTasksSuccess implements Action {
   readonly type = GET_ALL_TASKS_SUCCESS;

@@ -19,6 +19,7 @@ export class TaskComponent implements OnInit {
   allTasks: TaskModel[];
   editoption: any;
   editEnable: boolean;
+  currentUsername: string;
 
   constructor(private store: Store<fromRoot.State>, private authService: AuthService) {
     this.allTasks = [];
@@ -29,10 +30,13 @@ export class TaskComponent implements OnInit {
     this.onLoadComponent();
   }
   onLoadComponent(): void {
-    this.getAllTasks();
+    this.authService.getUserDataByToken().subscribe(response => {
+      this.currentUsername = response.message.username;
+      this.getAllTasks();
+    });
   }
   getAllTasks(): void {
-    this.store.dispatch(new taskActions.GetAllTasks());
+    this.store.dispatch(new taskActions.GetAllTasks(this.currentUsername));
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
       .subscribe((data) => {
         if (!data.loading) {
@@ -45,6 +49,8 @@ export class TaskComponent implements OnInit {
     if (form.invalid) {
       return;
     }
+    form.value.status = 'started';
+    form.value.username = this.currentUsername;
     this.store.dispatch(new taskActions.CreateTask(form.value));
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
       .subscribe((data) => {

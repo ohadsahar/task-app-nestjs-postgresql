@@ -10,6 +10,7 @@ const backendUrl = environment.backendUrlAuth;
 export class AuthService {
 
   private authStatusListener = new BehaviorSubject<boolean>(false);
+  private usernameListener = new BehaviorSubject<string>('');
   constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   signUp(authData: AuthModel) {
@@ -20,9 +21,13 @@ export class AuthService {
       if (response.message) {
         localStorage.setItem('token', response.message);
         this.authStatusListener.next(true);
+        this.usernameListener.next(authData.username);
         this.dialog.closeAll();
       }
     });
+  }
+  getUserDataByToken() {
+    return this.http.get<{message: any}>(`${backendUrl}/userdata`);
   }
   getAuthData() {
     const token = localStorage.getItem('token');
@@ -45,5 +50,4 @@ export class AuthService {
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
-
 }

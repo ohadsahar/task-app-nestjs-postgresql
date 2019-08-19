@@ -1,6 +1,9 @@
-import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { AuthEntity } from 'src/entities/AuthEntity';
+import { Body, Controller, Post, ValidationPipe, UseGuards, Get } from '@nestjs/common';
 import { AuthDto } from './../dto/auth.dto';
 import { AuthService } from './../services/auth.service';
+import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from '../get-user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -20,6 +23,16 @@ export class AuthController {
         try {
             const result = await this.authService.loginUser(authDto);
             return { message: result.accessToken, success: true };
+        } catch (error) {
+            return { message: error, success: false };
+        }
+    }
+
+    @Get('/userdata')
+    @UseGuards(AuthGuard())
+    test(@GetUser() user: AuthEntity) {
+        try {
+            return { message: user, success: true };
         } catch (error) {
             return { message: error, success: false };
         }
