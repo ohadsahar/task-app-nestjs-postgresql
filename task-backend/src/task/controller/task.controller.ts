@@ -1,13 +1,15 @@
 import { TaskValidationPipe } from './../pipes/task-validation.pipe';
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { TaskDTO } from './../dto/create-task.dto';
 import { TaskService } from './../service/task.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('task')
+
 export class TaskController {
 
     constructor(private readonly taskService: TaskService) { }
-
+    @UseGuards(AuthGuard())
     @Get()
     async get() {
         try {

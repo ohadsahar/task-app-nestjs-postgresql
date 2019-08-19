@@ -21,9 +21,7 @@ export class AuthComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    this.authService.signUp(form.value).subscribe(response => {
-      console.log(response);
-    });
+    this.authService.signIn(form.value);
   }
 
 }

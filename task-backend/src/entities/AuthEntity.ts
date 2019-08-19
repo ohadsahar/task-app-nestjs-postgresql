@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
-
+import * as bcrypt from 'bcryptjs';
 @Entity()
 @Unique(['username'])
 export class AuthEntity {
@@ -17,5 +17,4 @@ export class AuthEntity {
 
     @Column()
     salt: string;
-
 }
