@@ -1,0 +1,36 @@
+.task-component {
+  margin: auto;
+  display: block;
+  padding: 20px;
+}
+
+.task-component .full-width {
+  width: 100%;
+}
+
+.task-component .new-task {
+  margin: auto;
+  width: 400px;
+}
+
+.new-task .mat-raised-button {
+  margin: auto;
+  display: block;
+}
+
+.task-component .list-of-tasks {
+  text-align: center;
+}
+
+.list-of-tasks p {
+  font-weight: bold;
+}
+
+.mat-divider {
+  width: 50%;
+  margin: auto;
+  background-color: #80808066;
+  margin-top: 1%;
+}
+
+

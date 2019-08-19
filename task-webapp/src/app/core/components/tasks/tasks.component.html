@@ -1,20 +1,50 @@
-<form #taskForm="ngForm" (submit)="createTask(taskForm)" ngForm>
-  <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
-  <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
-  <button type="submit">Add task</button>
-</form>
-<div *ngFor="let item of allTasks; let i = index">
-  <p *ngIf="!editoption[i]">{{item?.task}} {{item?.description}}</p>
-  <section class="edit-section" *ngIf="editoption[i]">
-    <form #taskForm="ngForm" (submit)="updateTask(taskForm, item);editoption[i] =!editoption[i]" ngForm>
-      <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
-      <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
-      <button type="submit">Update task</button>
-      <button type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]">Cancel edit</button>
-    </form>
-  </section>
-  <button type="button" (click)="editoption[i] =!editoption[i]" *ngIf="!editoption[i]">Edit</button>
-  <button type="button" (click)="deleteTask(item?.id)" *ngIf="!editoption[i]">Delete</button>
+<div class="task-component">
+  <div class="row">
+    <div class="col-sm-12">
+      <section class="new-task">
+        <form #taskForm="ngForm" (submit)="createTask(taskForm)" ngForm>
+          <mat-form-field class="full-width">
+            <input matInput type="text" name="task" #task="ngModel" ngModel required>
+            <mat-placeholder class="placeholder">Task</mat-placeholder>
+            <mat-error *ngIf="task.invalid">Insert your task</mat-error>
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <input matInput type="text" name="description" #description="ngModel" ngModel required>
+            <mat-placeholder class="placeholder">Description</mat-placeholder>
+            <mat-error *ngIf="description.invalid">Insert your description</mat-error>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit">Add task</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="row">
+    <div class="col-sm-12">
+      <section class="list-of-tasks">
+        <h1>Task list</h1>
+        <div *ngFor="let item of allTasks; let i = index">
+          <section *ngIf="!editoption[i]">
+            <p>Task: {{item?.task}}</p>
+            <p>Description: {{item?.description}}</p>
+            <p>Status: {{item?.status}}</p>
+          </section>
+          <section class="edit-section" *ngIf="editoption[i]">
+            <form #taskForm="ngForm" (submit)="updateTask(taskForm, item);editoption[i] =!editoption[i]" ngForm>
+              <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
+              <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
+              <button type="submit">Update task</button>
+              <button type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]">Cancel edit</button>
+            </form>
+          </section>
+          <button mat-raised-button color="primary" type="button" (click)="editoption[i] =!editoption[i]"
+            *ngIf="!editoption[i]" style="margin-right: 1%">Edit</button>
+          <button mat-raised-button color="warn" type="button" (click)="deleteTask(item?.id)"
+            *ngIf="!editoption[i]">Delete</button>
+          <mat-divider></mat-divider>
+        </div>
+      </section>
+    </div>
+  </div>
+  <button type="button" mat-raised-button color="warn" (click)="logout()">Logout</button>
 </div>
-
-<button type="button" mat-raised-button color="primary" (click)="logout()">Logout</button>
