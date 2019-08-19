@@ -31,10 +31,22 @@
           </section>
           <section class="edit-section" *ngIf="editoption[i]">
             <form #taskForm="ngForm" (submit)="updateTask(taskForm, item);editoption[i] =!editoption[i]" ngForm>
-              <input type="text" name="task" #task="ngModel" ngModel placeholder="Insert your task">
-              <input type="text" name="description" #task="ngModel" ngModel placeholder="Insert your description">
-              <button type="submit">Update task</button>
-              <button type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]">Cancel edit</button>
+              <mat-form-field class="full-width">
+                <input matInput type="text" name="task" #task="ngModel" ngModel value="{{item?.task}}" required>
+                <mat-placeholder class="placeholder" *ngIf="item?.task.length <= 0">Task</mat-placeholder>
+                <mat-placeholder class="placeholder" *ngIf="item?.task.length > 0">{{item?.task}}</mat-placeholder>
+                <mat-error *ngIf="task.invalid">Insert your task</mat-error>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input matInput type="text" name="description" #description="ngModel" ngModel
+                  value="{{item?.description}}" required>
+                <mat-placeholder class="placeholder" *ngIf="item?.description.length <= 0">Description</mat-placeholder>
+                <mat-placeholder class="placeholder" *ngIf="item?.description.length > 0">{{item?.description}}
+                </mat-placeholder>
+                <mat-error *ngIf="description.invalid">Insert your description</mat-error>
+              </mat-form-field>
+              <button mat-raised-button color="primary" type="submit" style="margin-right: 1%">Update task</button>
+              <button mat-raised-button color="warn" type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]" >Cancel edit</button>
             </form>
           </section>
           <button mat-raised-button color="primary" type="button" (click)="editoption[i] =!editoption[i]"

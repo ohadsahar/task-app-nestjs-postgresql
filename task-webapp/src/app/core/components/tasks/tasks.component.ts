@@ -66,6 +66,8 @@ export class TaskComponent implements OnInit {
       return;
     }
     form.value.id = item.id;
+    form.value.username = item.username;
+    form.value.status = item.status;
     this.store.dispatch(new taskActions.UpdateTasks(form.value));
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
       .subscribe((data) => {
