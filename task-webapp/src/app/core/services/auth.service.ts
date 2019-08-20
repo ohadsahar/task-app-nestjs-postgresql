@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
   signUp(authData: AuthModel) {
-    return this.http.post<{ message: any }>(`${backendUrl}/signup`, authData);
+    return this.http.post<{ message: any, success: boolean }>(`${backendUrl}/signup`, authData);
   }
   signIn(authData: AuthModel) {
     this.http.post<{ message: any }>(`${backendUrl}/login`, authData).subscribe(response => {

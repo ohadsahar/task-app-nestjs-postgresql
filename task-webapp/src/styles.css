@@ -22,3 +22,7 @@ html * {
   font-family: 'Font Awesome 5 Free' !important;
 }
 
+.placeholder {
+  font-weight: bold;
+  color: black;
+}

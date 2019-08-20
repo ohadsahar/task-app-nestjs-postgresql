@@ -19,7 +19,6 @@ export class TaskComponent implements OnInit {
   cloneTask: TaskModel;
   allTasks: TaskModel[];
   editoption: any;
-  editEnable: boolean;
   currentUsername: string;
 
   constructor(private store: Store<fromRoot.State>, private authService: AuthService) {
@@ -78,19 +77,6 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  afterUpdate(i: number): void {
-    this.currentItemToDo(i);
-  }
-  CancelEdit(i: number, item: TaskModel): void {
-    item.task = this.cloneTask.task;
-    item.description = this.cloneTask.description;
-    item.status = this.cloneTask.status;
-    this.currentItemToDo(i);
-  }
-  editOption(i: number, item: TaskModel): void {
-    this.currentItemToDo(i);
-    this.cloneTask = Object.assign({}, item);
-  }
   deleteTask(id: string): void {
     this.store.dispatch(new taskActions.DeleteTasks(id));
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))
@@ -103,6 +89,19 @@ export class TaskComponent implements OnInit {
   }
   logout(): void {
     this.authService.logout();
+  }
+  afterUpdate(i: number): void {
+    this.currentItemToDo(i);
+  }
+  CancelEdit(i: number, item: TaskModel): void {
+    item.task = this.cloneTask.task;
+    item.description = this.cloneTask.description;
+    item.status = this.cloneTask.status;
+    this.currentItemToDo(i);
+  }
+  editOption(i: number, item: TaskModel): void {
+    this.currentItemToDo(i);
+    this.cloneTask = Object.assign({}, item);
   }
   currentItemToDo(i: number): void {
     this.editoption[i] = !this.editoption[i];

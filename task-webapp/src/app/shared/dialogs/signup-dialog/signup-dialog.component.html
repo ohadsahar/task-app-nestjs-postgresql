@@ -16,6 +16,7 @@
         <mat-placeholder class="placeholder">Password</mat-placeholder>
         <mat-error *ngIf="password.invalid">Error is invalid</mat-error>
       </mat-form-field>
+      <p *ngIf="alreadyExists?.length > 0">{{alreadyExists}}</p>
       <button mat-raised-button color="primary" type="submit">Signup</button>
     </form>
   </section>

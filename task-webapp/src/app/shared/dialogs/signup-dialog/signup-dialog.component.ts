@@ -10,6 +10,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 })
 export class SignupDialogComponent {
   hide: boolean;
+  alreadyExists: string;
 
   constructor(private authService: AuthService) {
     this.hide = true;
@@ -19,7 +20,14 @@ export class SignupDialogComponent {
       return;
     }
     this.authService.signUp(form.value).subscribe(response => {
-      console.log(response);
+      if (!response.success) {
+        this.alreadyExists = response.message.message.message;
+      } else {
+        this.alreadyExists = '';
+        this.authService.signIn(form.value);
+      }
+    }, (error) => {
+      console.log(error);
     });
   }
 
