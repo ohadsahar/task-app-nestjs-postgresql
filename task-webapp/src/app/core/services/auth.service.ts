@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthModel } from './../../shared/models/auth.model';
+import { Router } from '@angular/router';
 
 const backendUrl = environment.backendUrlAuth;
 @Injectable({ providedIn: 'root' })
@@ -11,7 +12,7 @@ export class AuthService {
 
   private authStatusListener = new BehaviorSubject<boolean>(false);
   private usernameListener = new BehaviorSubject<string>('');
-  constructor(private http: HttpClient, private dialog: MatDialog) { }
+  constructor(private http: HttpClient, private router: Router, private dialog: MatDialog) { }
 
   signUp(authData: AuthModel) {
     return this.http.post<{ message: any }>(`${backendUrl}/signup`, authData);
@@ -43,6 +44,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.authStatusListener.next(false);
     this.dialog.closeAll();
+    this.router.navigate(['']);
   }
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();

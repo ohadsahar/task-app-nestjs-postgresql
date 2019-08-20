@@ -1,4 +1,3 @@
+<app-top-menu *ngIf="isLogged"></app-top-menu>
 <app-auth *ngIf="!isLogged"></app-auth>
-<app-task *ngIf="isLogged"></app-task>
-
 <router-outlet></router-outlet>

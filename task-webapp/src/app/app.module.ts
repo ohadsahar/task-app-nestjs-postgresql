@@ -15,6 +15,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthComponent } from './core/components/auth/auth.component';
 import { LoginDialogComponent } from './shared/dialogs/login-dialog/login-dialog.component';
+import { TopMenuComponent } from './core/components/top-menu/top-menu.component';
 
 
 
@@ -24,7 +25,8 @@ import { LoginDialogComponent } from './shared/dialogs/login-dialog/login-dialog
     TaskComponent,
     AuthComponent,
     SignupDialogComponent,
-    LoginDialogComponent
+    LoginDialogComponent,
+    TopMenuComponent
   ],
   imports: [
     BrowserModule,
