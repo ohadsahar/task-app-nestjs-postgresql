@@ -10,8 +10,8 @@ export class TaskService {
 
   constructor(private http: HttpClient) { }
 
-  get(username: string) {
-    return this.http.get<{ message: TaskModel[] }>(`${backendUrlTask}/${username}`);
+  get() {
+    return this.http.get<{ message: TaskModel[] }>(backendUrlTask);
   }
   create(taskData: TaskModel) {
     return this.http.post<{ message: TaskModel}>(backendUrlTask, taskData);

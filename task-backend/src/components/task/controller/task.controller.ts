@@ -1,5 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { GetUser } from 'src/components/auth/get-user.decorator';
+import { AuthEntity } from 'src/entities/AuthEntity';
 import { TaskDTO } from './../dto/create-task.dto';
 import { TaskService } from './../service/task.service';
 
@@ -9,19 +11,19 @@ import { TaskService } from './../service/task.service';
 export class TaskController {
     constructor(private readonly taskService: TaskService) { }
 
-    @Get(':username')
-    async get(@Param('username') username: string) {
+    @Get()
+    async get(@GetUser() user: AuthEntity) {
         try {
-            const resultAllTasks = await this.taskService.getTasks(username);
+            const resultAllTasks = await this.taskService.getTasks(user);
             return { message: resultAllTasks, success: true };
         } catch (error) {
             return { message: error, success: false };
         }
     }
     @Post()
-    async create(@Body(ValidationPipe) taskDTO: TaskDTO) {
+    async create(@Body(ValidationPipe) taskDTO: TaskDTO, @GetUser() user: AuthEntity) {
         try {
-            const resultCreate = await this.taskService.createTask(taskDTO);
+            const resultCreate = await this.taskService.createTask(taskDTO, user);
             return { message: resultCreate, success: true };
         } catch (error) {
             return { message: error, success: false };

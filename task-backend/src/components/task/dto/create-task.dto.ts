@@ -6,10 +6,6 @@ export class TaskDTO {
 
     @IsNotEmpty()
     @IsString()
-    public username: string;
-
-    @IsNotEmpty()
-    @IsString()
     public status: string;
 
     @IsNotEmpty()
@@ -19,4 +15,5 @@ export class TaskDTO {
     @IsNotEmpty()
     @IsString()
     public description: string;
+
 }

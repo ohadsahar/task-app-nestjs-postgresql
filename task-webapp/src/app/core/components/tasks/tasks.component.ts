@@ -30,10 +30,7 @@ export class TaskComponent implements OnInit {
     this.onLoadComponent();
   }
   onLoadComponent(): void {
-    this.authService.getUserDataByToken().subscribe(response => {
-      this.currentUsername = response.message.username;
-      this.getAllTasks();
-    });
+    this.getAllTasks();
   }
   getAllTasks(): void {
     this.store.dispatch(new taskActions.GetAllTasks(this.currentUsername));
@@ -66,7 +63,6 @@ export class TaskComponent implements OnInit {
       return;
     }
     form.value.id = item.id;
-    form.value.username = item.username;
     form.value.status = item.status;
     this.store.dispatch(new taskActions.UpdateTasks(form.value));
     const dataToSubscribe = this.store.select(fromRoot.getTasksReducerData).pipe(takeUntil(this.ngbSubscribe$))

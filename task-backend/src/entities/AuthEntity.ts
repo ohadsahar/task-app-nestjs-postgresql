@@ -1,4 +1,6 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import { TaskDTO } from './../components/task/dto/create-task.dto';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, OneToMany } from 'typeorm';
+import { TaskEntity } from './TaskEntity';
 
 @Entity()
 @Unique(['username'])
@@ -17,4 +19,7 @@ export class AuthEntity {
 
     @Column()
     salt: string;
+
+    @OneToMany(type => TaskEntity, task => task.user, { eager: true })
+    tasks: TaskDTO[];
 }

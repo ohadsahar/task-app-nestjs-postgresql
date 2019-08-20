@@ -26,9 +26,6 @@ export class AuthService {
       }
     });
   }
-  getUserDataByToken() {
-    return this.http.get<{message: any}>(`${backendUrl}/userdata`);
-  }
   getAuthData() {
     const token = localStorage.getItem('token');
     if (!token) {

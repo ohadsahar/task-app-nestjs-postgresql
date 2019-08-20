@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { AuthEntity } from './AuthEntity';
+import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class TaskEntity {
@@ -9,9 +10,6 @@ export class TaskEntity {
     created: Date;
 
     @Column('text')
-    username: string;
-
-    @Column('text')
     task: string;
 
     @Column('text')
@@ -19,5 +17,11 @@ export class TaskEntity {
 
     @Column('text')
     description: string;
+
+    @ManyToOne(type => AuthEntity, user => user.tasks, { eager: false })
+    user: AuthEntity;
+
+    @Column()
+    userId: number;
 
 }
