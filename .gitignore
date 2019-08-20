@@ -59,4 +59,6 @@ typings/
 
 # next.js build output
 .next
-task-backend/src/app.module.ts
+task-backend/config/production.yml
+task-backend/config/development.yml
+task-backend/config/default.yml
