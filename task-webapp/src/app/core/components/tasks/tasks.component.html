@@ -2,6 +2,7 @@
   <div class="row">
     <div class="col-sm-12">
       <section class="new-task">
+        <h1>New Task</h1>
         <form #taskForm="ngForm" (submit)="createTask(taskForm)" ngForm>
           <mat-form-field class="full-width">
             <input matInput type="text" name="task" #task="ngModel" ngModel required>
@@ -45,6 +46,14 @@
                 </mat-placeholder>
                 <mat-error *ngIf="description.invalid">Insert your description</mat-error>
               </mat-form-field>
+              <mat-form-field class="full-width">
+                  <input matInput type="text" name="status" #status="ngModel" ngModel
+                    value="{{item?.status}}" required>
+                  <mat-placeholder class="placeholder" *ngIf="item?.status.length <= 0">Status</mat-placeholder>
+                  <mat-placeholder class="placeholder" *ngIf="item?.status.length > 0">{{item?.status}}
+                  </mat-placeholder>
+                  <mat-error *ngIf="description.invalid">Insert your description</mat-error>
+                </mat-form-field>
               <button mat-raised-button color="primary" type="submit" style="margin-right: 1%">Update task</button>
               <button mat-raised-button color="warn" type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]" >Cancel edit</button>
             </form>
