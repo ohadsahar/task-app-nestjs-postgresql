@@ -16,6 +16,7 @@ import { AuthService } from './../../services/auth.service';
 
 export class TaskComponent implements OnInit {
   public ngbSubscribe$: Subject<void> = new Subject<void>();
+  cloneTask: TaskModel;
   allTasks: TaskModel[];
   editoption: any;
   editEnable: boolean;
@@ -42,7 +43,7 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  createTask(form: NgForm) {
+  createTask(form: NgForm): void {
     if (form.invalid) {
       return;
     }
@@ -58,7 +59,7 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  updateTask(form: NgForm, item: TaskModel, i) {
+  updateTask(form: NgForm, item: TaskModel, i: number): void {
     if (form.invalid) {
       return;
     }
@@ -77,8 +78,18 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  afterUpdate(i) {
-    this.editoption[i] = !this.editoption[i];
+  afterUpdate(i: number): void {
+    this.currentItemToDo(i);
+  }
+  CancelEdit(i: number, item: TaskModel): void {
+    item.task = this.cloneTask.task;
+    item.description = this.cloneTask.description;
+    item.status = this.cloneTask.status;
+    this.currentItemToDo(i);
+  }
+  editOption(i: number, item: TaskModel): void {
+    this.currentItemToDo(i);
+    this.cloneTask = Object.assign({}, item);
   }
   deleteTask(id: string): void {
     this.store.dispatch(new taskActions.DeleteTasks(id));
@@ -90,8 +101,11 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  logout() {
+  logout(): void {
     this.authService.logout();
+  }
+  currentItemToDo(i: number): void {
+    this.editoption[i] = !this.editoption[i];
   }
 }
 

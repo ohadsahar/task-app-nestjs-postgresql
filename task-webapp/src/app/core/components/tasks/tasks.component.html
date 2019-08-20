@@ -33,32 +33,28 @@
           <section class="edit-section" *ngIf="editoption[i]">
             <form #taskForm="ngForm" (submit)="updateTask(taskForm, item, i);" ngForm>
               <mat-form-field class="full-width">
-                <input matInput type="text" name="task" #task="ngModel" ngModel value="{{item?.task}}" required>
-                <mat-placeholder class="placeholder" *ngIf="item?.task.length <= 0">Task</mat-placeholder>
-                <mat-placeholder class="placeholder" *ngIf="item?.task.length > 0" placeholder="item?.task">{{item?.task}}</mat-placeholder>
+                <input matInput type="text" name="task" [(ngModel)]="item.task" value="{{item?.task}}" required>
+                <mat-placeholder class="placeholder">Task</mat-placeholder>
                 <mat-error *ngIf="task.invalid">Insert your task</mat-error>
               </mat-form-field>
               <mat-form-field class="full-width">
-                <input matInput type="text" name="description" #description="ngModel" ngModel
+                <input matInput type="text" name="description" [(ngModel)]="item.description" ngModel
                   value="{{item?.description}}" required>
-                <mat-placeholder class="placeholder" *ngIf="item?.description.length <= 0">Description</mat-placeholder>
-                <mat-placeholder class="placeholder" *ngIf="item?.description.length > 0">{{item?.description}}
-                </mat-placeholder>
+                <mat-placeholder class="placeholder">Description</mat-placeholder>
                 <mat-error *ngIf="description.invalid">Insert your description</mat-error>
               </mat-form-field>
               <mat-form-field class="full-width">
-                  <input matInput type="text" name="status" #status="ngModel" ngModel
-                    value="{{item?.status}}" required>
-                  <mat-placeholder class="placeholder" *ngIf="item?.status.length <= 0">Status</mat-placeholder>
-                  <mat-placeholder class="placeholder" *ngIf="item?.status.length > 0">{{item?.status}}
-                  </mat-placeholder>
-                  <mat-error *ngIf="description.invalid">Insert your description</mat-error>
-                </mat-form-field>
+                <input matInput type="text" name="status" [(ngModel)]="item.status" ngModel value="{{item?.status}}"
+                  required>
+                <mat-placeholder class="placeholder">Status</mat-placeholder>
+                <mat-error *ngIf="description.invalid">Insert your Status</mat-error>
+              </mat-form-field>
               <button mat-raised-button color="primary" type="submit" style="margin-right: 1%">Update task</button>
-              <button mat-raised-button color="warn" type="button" (click)="editoption[i] = !editoption[i]" *ngIf="editoption[i]" >Cancel edit</button>
+              <button mat-raised-button color="warn" type="button" (click)="CancelEdit(i, item)"
+                *ngIf="editoption[i]">Cancel edit</button>
             </form>
           </section>
-          <button mat-raised-button color="primary" type="button" (click)="editoption[i] =!editoption[i]"
+          <button mat-raised-button color="primary" type="button" (click)="editOption(i, item)"
             *ngIf="!editoption[i]" style="margin-right: 1%">Edit</button>
           <button mat-raised-button color="warn" type="button" (click)="deleteTask(item?.id)"
             *ngIf="!editoption[i]">Delete</button>
