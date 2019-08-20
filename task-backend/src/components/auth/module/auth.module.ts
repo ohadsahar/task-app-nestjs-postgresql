@@ -1,5 +1,5 @@
 import { JwtStrategy } from '../jwt.strategy';
-import { AuthEntity } from 'src/entities/AuthEntity';
+import { AuthEntity } from 'src/entities/AuthEntity.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from '../controller/auth.controller';

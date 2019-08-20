@@ -1,5 +1,3 @@
-import { AuthEntity } from 'src/entities/AuthEntity';
-import { TaskEntity } from 'src/entities/TaskEntity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as config from 'config';
 
@@ -11,7 +9,7 @@ export const TypeOrmConfig: TypeOrmModuleOptions = {
     username: process.env.RDS_USERNAME || dbConfig.username,
     password: process.env.RDS_PASSWORD || dbConfig.password,
     database: process.env.DB_NAME || dbConfig.database,
-    entities: [TaskEntity, AuthEntity],
+    entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: process.env.TYPEORM_SYNC || dbConfig.synchronize,
     logging: true,
 };

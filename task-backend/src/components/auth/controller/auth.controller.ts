@@ -1,4 +1,4 @@
-import { AuthEntity } from 'src/entities/AuthEntity';
+import { AuthEntity } from 'src/entities/AuthEntity.entity';
 import { Body, Controller, Post, ValidationPipe, UseGuards, Get } from '@nestjs/common';
 import { AuthDto } from './../dto/auth.dto';
 import { AuthService } from './../services/auth.service';

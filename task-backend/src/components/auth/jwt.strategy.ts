@@ -1,4 +1,4 @@
-import { AuthEntity } from 'src/entities/AuthEntity';
+import { AuthEntity } from 'src/entities/AuthEntity.entity';
 import { JwtPayload } from './interface/jwt-payload.interface';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';

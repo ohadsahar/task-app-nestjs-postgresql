@@ -1,4 +1,4 @@
-import { AuthEntity } from './AuthEntity';
+import { AuthEntity } from './AuthEntity.entity';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()

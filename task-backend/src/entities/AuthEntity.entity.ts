@@ -1,6 +1,6 @@
-import { TaskDTO } from './../components/task/dto/create-task.dto';
+import { TaskDTO } from '../components/task/dto/create-task.dto';
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, OneToMany } from 'typeorm';
-import { TaskEntity } from './TaskEntity';
+import { TaskEntity } from './TaskEntity.entity';
 
 @Entity()
 @Unique(['username'])
