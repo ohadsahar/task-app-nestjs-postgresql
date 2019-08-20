@@ -58,7 +58,7 @@ export class TaskComponent implements OnInit {
         }
       });
   }
-  updateTask(form: NgForm, item: TaskModel) {
+  updateTask(form: NgForm, item: TaskModel, i) {
     if (form.invalid) {
       return;
     }
@@ -71,10 +71,14 @@ export class TaskComponent implements OnInit {
           if (index >= 0) {
             this.allTasks[index] = data.data;
           }
+          this.afterUpdate(i);
           dataToSubscribe.unsubscribe();
           form.reset();
         }
       });
+  }
+  afterUpdate(i) {
+    this.editoption[i] = !this.editoption[i];
   }
   deleteTask(id: string): void {
     this.store.dispatch(new taskActions.DeleteTasks(id));

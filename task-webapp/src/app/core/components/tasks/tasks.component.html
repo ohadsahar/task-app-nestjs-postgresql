@@ -31,11 +31,11 @@
             <p>Status: {{item?.status}}</p>
           </section>
           <section class="edit-section" *ngIf="editoption[i]">
-            <form #taskForm="ngForm" (submit)="updateTask(taskForm, item);editoption[i] =!editoption[i]" ngForm>
+            <form #taskForm="ngForm" (submit)="updateTask(taskForm, item, i);" ngForm>
               <mat-form-field class="full-width">
                 <input matInput type="text" name="task" #task="ngModel" ngModel value="{{item?.task}}" required>
                 <mat-placeholder class="placeholder" *ngIf="item?.task.length <= 0">Task</mat-placeholder>
-                <mat-placeholder class="placeholder" *ngIf="item?.task.length > 0">{{item?.task}}</mat-placeholder>
+                <mat-placeholder class="placeholder" *ngIf="item?.task.length > 0" placeholder="item?.task">{{item?.task}}</mat-placeholder>
                 <mat-error *ngIf="task.invalid">Insert your task</mat-error>
               </mat-form-field>
               <mat-form-field class="full-width">
